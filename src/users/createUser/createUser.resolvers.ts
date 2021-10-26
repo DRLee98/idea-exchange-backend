@@ -18,7 +18,7 @@ const resolvers: Resolvers = {
         }
         const telVerified = await client.verification.findUnique({
           where: { tel },
-          select: { verified }
+          select: { verified: true },
         });
         if (!telVerified) {
           return mutationError("휴대폰 인증을 완료해 주시기 바랍니다.");
@@ -31,17 +31,18 @@ const resolvers: Resolvers = {
             name,
             password: hashPassword,
             tel,
-            profileUrl
-          }
+            profileUrl,
+          },
         });
         return {
-          ok: true
+          ok: true,
         };
       } catch (error) {
-        return mutationError(error);
+        console.log(error);
+        return mutationError("error");
       }
-    }
-  }
+    },
+  },
 };
 
 export default resolvers;
