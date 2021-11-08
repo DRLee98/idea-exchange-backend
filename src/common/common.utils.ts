@@ -1,1 +1,1 @@
-export const mutationError = (error: string) => ({ ok: false, error });
+export const failError = (error: string) => ({ ok: false, error });

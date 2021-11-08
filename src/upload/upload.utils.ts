@@ -1,6 +1,6 @@
 // import AWS from "aws-sdk";
 import { createWriteStream } from "fs";
-import { mutationError } from "../common/common.utils";
+import { failError } from "../common/common.utils";
 
 const makeFileName = (filename: string, folder?: string) =>
   `${folder}/${Date.now()}-${Math.random() * 1000}-${filename}`;
@@ -75,7 +75,7 @@ const BUCKET_NAME = "idea-exchange";
 //     }
 //   } catch (e) {
 //     console.log(e);
-//     return mutationError(e);
+//     return failError(e);
 //   }
 // };
 

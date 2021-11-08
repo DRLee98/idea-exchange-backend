@@ -3,10 +3,19 @@ import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import { graphqlUploadExpress } from "graphql-upload";
 import { schema } from "./schema";
+import { getUser } from "./users/users.utils";
+import client from "./client";
 
 const PORT = process.env.PORT;
 
-const server = new ApolloServer({ schema });
+const server = new ApolloServer({
+  schema,
+  context: async ({ req }) => {
+    const token = req.header["token"] || "";
+    const loggedInUser = await getUser(token);
+    return { loggedInUser, client };
+  }
+});
 
 server.start().then(() => {
   const app = express();
